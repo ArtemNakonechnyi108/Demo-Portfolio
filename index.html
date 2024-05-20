@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+
+    <!-- custom style css link -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- font link -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- fonawesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- header section start  -->
+
+    <header>
+      <div class="user">
+        <img src="img/user.jpg" />
+        <h3 class="name">Oleg simagin</h3>
+        <p>Foto-video operator</p>
+      </div>
+
+      <nav class="navbar">
+        <ul>
+          <li class="btn-close"><a href="#home">home</a></li>
+          <li class="btn-close"><a href="/public/about.html">about</a></li>
+          <li class="btn-close"><a href="#portfolio">portfolio</a></li>
+          <li class="btn-close"><a href="#reviews">reviews</a></li>
+          <li class="btn-close"><a href="/public/contact.html">contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="menu" class="fas fa-bars"></div>
+    <!-- header section end -->
+
+    <!-- home section start  -->
+
+    <section id="home" class="home">
+      <div class="container">
+        <div class="slide-container active">
+          <div class="slide">
+            <div class="content">
+              <h3>Создаю истории и оживляю кадры</h3>
+            </div>
+            <video src="video/1.mp4" muted></video>
+          </div>
+        </div>
+        <div class="slide-container">
+          <div class="slide">
+            <div class="content">
+              <h3>Видеомагия в каждом кадре</h3>
+            </div>
+            <video src="video/2.mp4" muted></video>
+          </div>
+        </div>
+        <div class="slide-container">
+          <div class="slide">
+            <div class="content">
+              <h3>Ваши идеи — наше вдохновение</h3>
+            </div>
+            <video src="video/3.mp4" muted></video>
+          </div>
+        </div>
+        <div class="slide-container">
+          <div class="slide">
+            <div class="content">
+              <h3>Запечатлейте моменты, которые важны</h3>
+            </div>
+            <video src="video/4.mp4" muted></video>
+          </div>
+        </div>
+        <div id="next" onclick="next()">></div>
+        <div id="prev" onclick="next()"><</div>
+      </div>
+    </section>
+    <!-- home section end -->
+
+    <!-- portfolio section start -->
+    <section id="portfolio" class="portfolio">
+      <h3 class="heading">my <span>projects</span></h3>
+      <div class="box-container">
+        <div class="box">
+          <a href="/portfolio/img1.html">
+            <img src="img/MainImg_1.png" />
+            <div class="overlay-text">photos from spiritual events</div>
+          </a>
+        </div>
+        <div class="box">
+          <img src="img/MainImg_2.png" />
+          <div class="overlay-text">business photo</div>
+        </div>
+        <div class="box">
+          <a href="/portfolio/video1.html">
+            <img src="img/MainImg_3.png" />
+            <div class="overlay-text">creative videos</div>
+          </a>
+        </div>
+        <div class="box">
+          <img src="img/MainImg_4.png" />
+          <div class="overlay-text">drone video</div>
+        </div>
+        <div class="box">
+          <img src="img/MainImg_5.png" />
+          <div class="overlay-text">portrait photos</div>
+        </div>
+        <div class="box">
+          <img src="img/MainImg_6.png" />
+          <div class="overlay-text">wedding photo</div>
+        </div>
+      </div>
+    </section>
+    <!-- portfolio section end -->
+
+    <!-- footer section start -->
+    <div class="social-links">
+      <a href="#" class="fab fa-facebook"></a>
+      <a
+        href="https://www.instagram.com/simaginfilm/"
+        class="fab fa-instagram"
+      ></a>
+      <a href="#" class="fab fa-twitter"></a>
+      <a href="#" class="fab fa-youtube"></a>
+    </div>
+    <!-- footer section end -->
+
+    <!-- script link -->
+    <script>
+      let menu = document.querySelector("#menu");
+      let openMenu = document.querySelector("header");
+      let blockBody = document.querySelector("body");
+      let headerItems = document.querySelectorAll(".btn-close");
+
+      menu.onclick = () => {
+        menu.classList.toggle("fa-times");
+        openMenu.classList.toggle("active");
+        blockBody.classList.toggle("active");
+      };
+
+      headerItems.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          menu.classList.toggle("fa-times");
+          blockBody.classList.toggle("active");
+
+          openMenu.classList.remove("active");
+        });
+      });
+
+      // slideshow wideo
+
+      let slides = document.querySelectorAll(".slide-container");
+      let index = 0;
+
+      function showSlide(idx) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove("active");
+          slide.style.opacity = "0";
+          slide.querySelector("video").pause();
+        });
+        slides[idx].classList.add("active");
+        slides[idx].style.opacity = "1";
+        slides[idx].querySelector("video").play();
+        slides[idx].querySelector("video").onended = next; // Automatically move to next video when current video ends
+      }
+
+      function next() {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+        showSlide(index);
+      }
+
+      function prev() {
+        slides[index].classList.remove("active");
+        index = (index - 1 + slides.length) % slides.length;
+        slides[index].classList.add("active");
+        showSlide(index);
+      }
+
+      // Initial show
+      showSlide(index);
+    </script>
+  </body>
+</html>
